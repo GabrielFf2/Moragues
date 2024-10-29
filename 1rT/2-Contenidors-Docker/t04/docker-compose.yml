@@ -1,0 +1,27 @@
+name: docker-t04
+services:
+  php-apache:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    container_name: docker-t04-php-apache
+    working_dir: /var/www/html/
+    volumes:
+      - ./app:/var/www/html/
+    ports:
+      - "80:80"
+  db-mysql:
+    image: mysql:5.7
+    container_name: docker-t04-db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: andreudb
+      MYSQL_DATABASE: myDB
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_PORT: 3306
+      PMA_HOST: db-mysql
+    ports:
+      - "81:80"

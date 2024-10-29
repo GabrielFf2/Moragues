@@ -1,0 +1,23 @@
+name: docker-t03
+services:
+  php-apache:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    container_name: docker-t03-php-apache
+    working_dir: /var/www/html/
+    volumes:
+      - ./app:/var/www/html/
+    ports:
+      - "80:80"
+  db-mariadb:
+    image: mariadb:11.2
+    container_name: docker-t03-db-mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: andreudb
+      MARIADB_DATABASE: myDB
+    volumes:
+      - db_data_mariadb:/var/lib/mysql
+
+volumes:
+  db_data_mariadb:

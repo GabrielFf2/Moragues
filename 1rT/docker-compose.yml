@@ -1,0 +1,30 @@
+name: Moragues
+services:
+  apache-php:
+    image: php:8.2-apache
+    tty: true
+    stdin_open: true
+    working_dir: /var/www/html/
+    volumes:
+      - ./Exercicis:/var/www/html/
+    ports:
+      - 8000:80
+  db:
+    image: mariadb
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./Ex1:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: gabri
+    ports:
+      - "9000:3306"
+  phpmyadmin:
+    image: phpmyadmin
+    tty: true
+    stdin_open: true
+    ports:
+      - 9900:80
+    environment:
+      - PMA_HOST:db
+      - PMA_PORT:3306
